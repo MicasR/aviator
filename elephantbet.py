@@ -116,10 +116,10 @@ def close_header():
 
 
 def open_history():
-    div_present = EC.presence_of_element_located((By.CSS_SELECTOR, ".trigger"))
+    div_present = EC.presence_of_element_located((By.CSS_SELECTOR, "div.button-block > div"))
     element = wait.until(div_present)
     if element.is_displayed():
-        close_button = driver.find_element(By.CSS_SELECTOR, ".trigger")
+        close_button = driver.find_element(By.CSS_SELECTOR, "div.button-block > div")
         close_button.click()
 
 
