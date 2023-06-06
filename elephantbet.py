@@ -123,6 +123,13 @@ def open_history():
         close_button.click()
 
 
+def get_history() ->list[float]:
+    open_history()
+    payout_elements = driver.find_elements(By.CSS_SELECTOR, ".bubble-multiplier")
+    payouts = [float(element.text.strip("x")) for element in payout_elements]
+    return payouts
+
+
 def logout():
     print('logging out ...')
     driver.switch_to.default_content()
@@ -133,7 +140,6 @@ def logout():
 
     # Click the button using JavaScript
     driver.execute_script("arguments[0].click();", button)
-
 
 
 class RollData():
@@ -168,3 +174,5 @@ class RollData():
                 self.failed_attempts = 0
 
             close_header()
+
+
