@@ -124,10 +124,16 @@ def open_history():
 
 
 def get_history() ->list[float]:
-    open_history()
-    payout_elements = driver.find_elements(By.CSS_SELECTOR, ".bubble-multiplier")
-    payouts = [float(element.text.strip("x")) for element in payout_elements]
-    return payouts
+    try:
+        open_history()
+        payout_elements = driver.find_elements(By.CSS_SELECTOR, "app-stats-dropdown > div > div.payouts-block > div")
+        payouts = []
+        for element in payout_elements:
+            try:payouts.append(float(element.text.strip("x")))
+            except: pass
+        return payouts
+
+    except: pass
 
 
 def logout():
@@ -168,11 +174,15 @@ class RollData():
             if self.current_roll != rodada and rodada:
                 rodada_datetime = get_time()
                 multiplier = get_multiplier()
-                excel.add_row_to_excel(self.excel_file_name,rodada, rodada_datetime, multiplier)
+                close_header()
+                payout_history = get_history()
 
+                excel.add_row_to_excel(self.excel_file_name,rodada, rodada_datetime, multiplier, payout_history)
                 self.current_roll = rodada
                 self.failed_attempts = 0
 
             close_header()
+
+
 
 
