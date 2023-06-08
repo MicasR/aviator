@@ -29,4 +29,4 @@ def add_row_to_excel(filename: str, event_number:int, datetime: datetime, multip
     with pd.ExcelWriter(filename, mode='a',  if_sheet_exists="overlay") as writer:
         start_row = writer.sheets['Sheet1'].max_row
         df.to_excel(writer, index=False, header=False, startrow=start_row)
-        print(f"multiplier added to {filename}: {event_number = } {datetime = } {multiplier = } {len(payout_history) = }")
+        print(f"Added: {event_number = } {multiplier = } payouts = {len(payout_history)} {datetime = }")
