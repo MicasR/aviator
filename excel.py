@@ -16,7 +16,7 @@ def create_excel_file(filename):
         print(f"{filename} created successfully!")
 
 
-def add_row_to_excel(filename: str, event_number:int, datetime: datetime, multiplier:float, payout_history: list[float]):
+def add_row_to_excel(filename: str, event_number:int, datetime: datetime, multiplier:float, payout_history: list[float], failed_attempts=0):
     create_excel_file(filename)
 
     df = pd.DataFrame({
@@ -29,4 +29,4 @@ def add_row_to_excel(filename: str, event_number:int, datetime: datetime, multip
     with pd.ExcelWriter(filename, mode='a',  if_sheet_exists="overlay") as writer:
         start_row = writer.sheets['Sheet1'].max_row
         df.to_excel(writer, index=False, header=False, startrow=start_row)
-        print(f"Added: {event_number = } {multiplier = } payouts = {len(payout_history)} {datetime = }")
+        print(f"Added: {event_number = } {multiplier = } payouts = {len(payout_history)} {failed_attempts = } {datetime = }")

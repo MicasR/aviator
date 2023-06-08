@@ -1,6 +1,7 @@
 import time
-import utils as u
 import excel
+from datetime import datetime
+import utils as u
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
@@ -70,13 +71,13 @@ def open_first_bubble():
     try:
         first_bubble = driver.find_element(By.CSS_SELECTOR, "app-bubble-multiplier:nth-child(1) > div")
         first_bubble.click()
-        time.sleep(2)
     except:
         pass
         # print("Error: Could not open bubble")
 
 
 def get_rodada() -> int:
+    time.sleep(0.1)
     rodada_element = driver.find_element(By.XPATH,'//span[contains(text(), "Rodada")]')
     rodada_text = rodada_element.text.split()[1]
     output = int(rodada_text)
@@ -153,7 +154,7 @@ class RollData():
         current_roll = 0,
         excel_file_name = "multipliers.xlsx",
         failed_attempts = 0,
-        max_failed_attempts = 500
+        max_failed_attempts = 3000
     ):
         self.current_roll = current_roll
         self.excel_file_name = excel_file_name
@@ -171,12 +172,13 @@ class RollData():
                 if self.failed_attempts > self.max_failed_attempts: break
 
             if self.current_roll != rodada and rodada:
-                rodada_datetime = get_time()
+                # rodada_datetime = get_time()
+                rodada_datetime = datetime.now()
                 multiplier = get_multiplier()
                 close_header()
                 payout_history = get_history()
-
-                excel.add_row_to_excel(self.excel_file_name,rodada, rodada_datetime, multiplier, payout_history)
+                open_history()
+                excel.add_row_to_excel(self.excel_file_name,rodada, rodada_datetime, multiplier, payout_history, self.failed_attempts)
                 self.current_roll = rodada
                 self.failed_attempts = 0
 
