@@ -153,7 +153,7 @@ class RollData():
         current_roll = 0,
         excel_file_name = "multipliers.xlsx",
         failed_attempts = 0,
-        max_failed_attempts = 1000
+        max_failed_attempts = 500
     ):
         self.current_roll = current_roll
         self.excel_file_name = excel_file_name
