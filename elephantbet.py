@@ -64,7 +64,6 @@ def enter_aviator():
 def switch_to_aviator_frame():
     driver.switch_to.frame(driver.find_element(By.ID, "game_loader"))
     driver.switch_to.frame(driver.find_element(By.ID, "spribe-game"))
-    time.sleep(2)
 
 
 def open_first_bubble():
