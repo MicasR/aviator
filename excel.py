@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 
-def create_columns_list(number_of_payouts:int=51)->list[str]:
+def create_columns_list(number_of_payouts:int=60)->list[str]:
     column_list = ['event_number','datetime', 'multiplier']
     for number in range(number_of_payouts): column_list.append(f"payout_{number}")
     return column_list
